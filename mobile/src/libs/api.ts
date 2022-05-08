@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://backend-feedget-production-d75d.up.railway.app/"
+  baseURL: "https://feedget-nlw-production-a88e.up.railway.app/"
 })
