@@ -5,6 +5,10 @@
 ![cover](.github/feedget.png?style=flat)
 
 
+<h1 align="center">
+<img src=".github/mobile.png" height="500" title="Plant Manager"/>
+</h1>
+
 ## 💻 Projeto
 Aplicativo para relatar feedbacks de bugs, sugestões e melhorias.
 Disponivel para web e mobile.
