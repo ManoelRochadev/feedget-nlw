@@ -56,14 +56,14 @@ export class SubmitFeedbackUseCase {
         }
   
         img {
-          width: 100%;
-          height: auto;
+          width: 700px;
+          height: 500px;
         }`,
         `</style>`,
         `<title>Email</title>
         </head>
         <body>`,
-        `<div style="font-family: sans-serif; font-size: 16px; color: #111; align-items: center" >`,
+        `<div>`,
         `<p>Tipo de feedback: ${type}</p>`,
         `<p>Comentário: ${comment}</p>`,
         screenshot
