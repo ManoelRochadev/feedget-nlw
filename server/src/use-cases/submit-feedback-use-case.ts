@@ -51,6 +51,8 @@ export class SubmitFeedbackUseCase {
         }
         div {
           align-items: center;
+          display: flex;
+          justify-content: center;
         }
   
         img {
