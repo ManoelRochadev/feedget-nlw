@@ -81,9 +81,9 @@ export class SubmitFeedbackUseCase {
       <body>
       <div>
       <h1>Feedback ${type}</h1>
-      <p>Comentário ${comment}</p>
-      <img src="${screenshot}"/>
-      </div>
+      <p>Comentário ${comment}</p>`,
+        screenshot ?? `<img src="${screenshot}">`,
+      `</div>
        </body>
       </html>`
       ].join('\n')
