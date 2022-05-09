@@ -53,11 +53,13 @@ export class SubmitFeedbackUseCase {
           align-items: center;
           display: flex;
           justify-content: center;
+          display: flex;
+          flex-direction: column;
         }
   
         img {
-          width: 700px;
-          height: 500px;
+          width: 500px;
+          height: 350px;
         }`,
         `</style>`,
         `<title>Email</title>
