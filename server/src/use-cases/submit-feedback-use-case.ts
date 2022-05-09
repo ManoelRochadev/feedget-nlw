@@ -71,9 +71,10 @@ export class SubmitFeedbackUseCase {
       }
 
       img {
-        height: 240px;
-        width: 400px;
+        height: auto;
+        width: auto;
       }
+
       </style>
       <title>Email</title>
       </head>
@@ -81,7 +82,7 @@ export class SubmitFeedbackUseCase {
       <div>
       <h1>Feedback ${type}</h1>
       <p>Comentário ${comment}</p>
-<img src="${screenshot}"/>
+      <img src="${screenshot}"/>
       </div>
        </body>
       </html>`
