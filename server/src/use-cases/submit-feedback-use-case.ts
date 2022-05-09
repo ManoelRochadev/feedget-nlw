@@ -37,43 +37,54 @@ export class SubmitFeedbackUseCase {
     await this.mailAdapter.sendMail({
       subject: 'Novo Feedback',
       body: [
-        `<!DOCTYPE html>
-        <html lang="en">
-          <head>
-            <meta charset="UTF-8" />
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />`,
-        `<style type="text/css">
-        body {
-          font-family: sans-serif;
-          font-size: 16px;
-          color: #111;
+        ` <html lang="pt-BR">
+        <head>
+          <meta charset="UTF-8" />
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+      <style type="text/css">
+      body {
+        font-family: Roboto, sans-serif;
+        font-size: 16px;
+        color: #f4f4f5;
+        background-color: #18181b;
+      }
+          
+      div {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+      }
+        h1 {
+          font-size: 32px
         }
-        div {
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          display: flex;
-          flex-direction: column;
-        }
-  
-        img {
-          width: 500px;
-          height: 350px;
-        }`,
-        `</style>`,
-        `<title>Email</title>
-        </head>
-        <body>`,
-        `<div>`,
-        `<p>Tipo de feedback: ${type}</p>`,
-        `<p>Comentário: ${comment}</p>`,
-        screenshot
-          ? `<img src="${screenshot}" style="height: 700px; width: 1000px" />`
-          : '',
-        `</div>`,
-        ` </body>
-        </html>`
+        
+      p {
+        font-size: 16px;
+         margin-top: 0px;
+        color: #a1a1aa;
+      }
+
+      img {
+        height: 240px;
+        width: 400px;
+      }
+      </style>
+      <title>Email</title>
+      </head>
+      <body>
+      <div>
+      <h1>Feedback ${type}</h1>
+      <p>Comentário ${comment}</p>
+<img src="${screenshot}"/>
+      </div>
+       </body>
+      </html>`
       ].join('\n')
     })
   }
