@@ -72,7 +72,7 @@ export class SubmitFeedbackUseCase {
 
       img {
         height: auto;
-        max-width: 100vw;
+        max-width: 90vw;
       }
 
       </style>
