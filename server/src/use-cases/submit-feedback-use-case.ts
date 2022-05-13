@@ -1,5 +1,6 @@
 import { MailAdapter } from '../adapters/mail-adapter'
 import { FeedbacksRepository } from '../repositories/feedbacks-repository'
+import juice from 'juice'
 
 interface SubmitFeedbackUseCaseRequest {
   type: string
@@ -24,8 +25,8 @@ export class SubmitFeedbackUseCase {
       throw new Error('comment are required')
     }
 
-    if (screenshot && !screenshot.startsWith('data:image/png;base64')) {
-      throw new Error('Invalid screenshot')
+   if (screenshot && !screenshot.startsWith('data:image/png;base64')) {
+     throw new Error('Invalid screenshot')
     }
 
     await this.feedbacksRepository.create({
@@ -34,59 +35,64 @@ export class SubmitFeedbackUseCase {
       screenshot
     })
 
+    const screenshotExists = () => screenshot ? `<a href="cid:screenshot">
+    <img src="cid:screenshot" alt="imagem do feedback" width="300px"/>
+   </a>` : ''
+
+    const result = juice(`<style>
+      table {
+        border-collapse: collapse;
+      }
+
+      td {
+        padding-bottom: 30px;
+        padding-right: 0px;
+        padding-left: 0px;
+        padding-top: 40px;
+        font-family: sans-serif;
+        font-size: 16px;
+        color: #a1a1aa;
+        margin-top: 20px;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+    
+    </style>  
+        <body>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#18181b">
+        <tr>
+         <td align="center" class="title">
+          Tipo de feedback ${type}
+         </td>
+        <tr>
+         <td align="center">
+          comentario ${comment}
+         </td>
+        <tr>
+         <td align="center">
+         ${screenshotExists()}
+         </td>
+        </tr>
+       </table>
+        </body>
+    `)
+
     await this.mailAdapter.sendMail({
       subject: 'Novo Feedback',
-      body: [
-        ` <html lang="pt-BR">
-        <head>
-          <meta charset="UTF-8" />
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-      <style type="text/css">
-      body {
-        font-family: Roboto, sans-serif;
-        font-size: 16px;
-        color: #f4f4f5;
-        background-color: #18181b;
-      }
-          
-      div {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-      }
-        h1 {
-          font-size: 32px
-        }
-        
-      p {
-        font-size: 16px;
-         margin-top: 0px;
-        color: #a1a1aa;
-      }
-
-      img {
-        height: auto;
-        max-width: 90vw;
-      }
-
-      </style>
-      <title>Email</title>
+      body: [`
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml">
+       <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Demystifying Email Design</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       </head>
-      <body>
-      <div>
-      <h1>Feedback ${type}</h1>
-      <p>Comentário ${comment}</p>`,
-        screenshot ? `<img src="${screenshot}"/>` : '',
-      `</div>
-       </body>
-      </html>`
-      ].join('\n')
+      ${result}
+      </html>
+      `].join(),
+      screenshot
     })
   }
 }

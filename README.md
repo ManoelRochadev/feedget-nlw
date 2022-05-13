@@ -4,7 +4,6 @@
 
 ![cover](.github/feedget.png?style=flat)
 
-
 <h1 align="center">
 <img src=".github/mobile.png" height="500" title="Plant Manager"/>
 </h1>
